@@ -26,8 +26,8 @@ echo "Installing dependencies..."
 flutter pub get
 
 # 4. Compile the Flutter web application
-echo "Building Flutter Web application (Canvaskit / Production)..."
-flutter build web --release --web-renderer canvaskit
+echo "Building Flutter Web application (Production)..."
+flutter build web --release
 
 # 5. Generate vercel.json SPA Routing Configuration
 echo "Generating SPA routing configuration (vercel.json)..."

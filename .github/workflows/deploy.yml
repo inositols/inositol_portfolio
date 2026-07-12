@@ -29,7 +29,7 @@ jobs:
 
       # Step 4: Build optimized production release for the web
       - name: Build Web Application
-        run: flutter build web --release --web-renderer canvaskit
+        run: flutter build web --release
 
       # Step 5: Automatically generate vercel.json in the project root and copy it to the build output directory
       - name: Generate SPA Routing Configuration (vercel.json)
