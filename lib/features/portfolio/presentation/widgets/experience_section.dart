@@ -23,6 +23,8 @@ class _ExperienceSectionState extends State<ExperienceSection> {
     switch (id) {
       case 'bucapay_exp':
         return ['Flutter', 'Bloc', 'Clean Architecture', 'WebSockets', 'Hive', 'Biometrics'];
+      case 'jcommunity_exp':
+        return ['Flutter', 'Bloc', 'PDF Generation', 'l10n', 'Secure Storage'];
       case 'getpouch_exp':
         return ['Flutter', 'Stripe Integration', 'Hive', 'Firebase FCM', 'iOS & Android'];
       case 'jejelove_exp':

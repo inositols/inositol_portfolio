@@ -116,55 +116,72 @@ class LocalData {
     Experience(
       id: 'bucapay_exp',
       company: 'BucaPay',
-      role: 'Senior Flutter Engineer (Remote)',
-      period: '2024 - Present',
+      role: 'Flutter Engineer (Remote)',
+      period: 'Nov 2025 - May 2026',
       location: 'Lagos, Nigeria (Remote)',
       companyUrl: 'https://bucapay.com',
       responsibilities: [
-        'Architected and maintained the premium crypto off-ramp platform using Clean Architecture and Bloc pattern, reducing codebase coupling by 40%.',
-        'Implemented biometrics validation, hardware-backed secure storage, and dynamic screen obscuring for robust fintech-grade mobile security.',
-        'Integrated real-time websocket connections to feed live token prices, achieving zero latency updates across user dashboards.',
-        'Mentored 3 junior developers and established code review guidelines, leading to a 30% reduction in code review cycles.'
+        'Co-developed and maintained the mobile cryptocurrency off-ramp platform using Clean Architecture and the BLoC state management pattern to ensure clear separation of concerns.',
+        'Integrated hardware-backed secure storage, multi-factor biometric authentication (face/fingerprint validation), and dynamic screen obscuring to meet strict fintech security guidelines.',
+        'Designed and optimized WebSocket connection listeners to stream real-time price tickers, implementing automatic connection reconnect strategies using exponential backoff.',
+        'Managed secure client-side API integrations using REST endpoints, customized HTTP header interceptors, and server-verified payload idempotency keys.',
+        'Conducted engineering code reviews and drafted Git style guidelines to ensure high standards of readability and formatting across team repositories.'
+      ],
+    ),
+    Experience(
+      id: 'jcommunity_exp',
+      company: 'J.Community',
+      role: 'Lead Flutter Engineer (Contract)',
+      period: 'Oct 2025 - Mar 2026',
+      location: 'Nigeria (Remote)',
+      companyUrl: 'https://jcommunity.web.app',
+      responsibilities: [
+        'Spearheaded the design of a scalable event management mobile application supporting multi-role access panels for both organizations and volunteer attendees.',
+        'Integrated a client-side PDF certification builder, enabling on-device generation of volunteer certificates and reducing administrative overhead.',
+        'Engineered an offline-first local cache and secure storage layers using EncryptedSharedPreferences to safeguard authentication tokens and sensitive data.',
+        'Developed a multi-language localization system (l10n) supporting English and French, expanding the app\'s accessible market reach.'
       ],
     ),
     Experience(
       id: 'getpouch_exp',
       company: 'GetPouch',
-      role: 'Lead Mobile Developer',
-      period: '2022 - 2024',
+      role: 'Flutter Developer (Remote)',
+      period: 'Jan 2023 - Mar 2023',
       location: 'Nairobi, Kenya (Remote)',
       companyUrl: 'https://getpouch.co',
       responsibilities: [
-        'Spearheaded the rebuild of the Pouch mobile app using Flutter, achieving a unified codebase that replaced separate iOS and Android native apps.',
-        'Implemented payment processing and Stripe gateway, processing over \$150k monthly in digital transactions with high reliability.',
-        'Configured an offline-first caching framework using Hive DB and custom sync queues, offering seamless UX during network loss.',
-        'Integrated dynamic push notifications via FCM, resulting in a 25% increase in user retention.'
+        'Collaborated within an agile team to develop a cross-platform fintech mobile wallet designed for children and parents.',
+        'Implemented pixel-perfect user interface layouts from design specs using custom animations and responsive widgets.',
+        'Refactored core wallet balance structures and parental control tracking workflows to stabilize application states.',
+        'Integrated RESTful API connectors utilizing secure network configurations to process digital pocket-money transactions.'
       ],
     ),
     Experience(
       id: 'jejelove_exp',
       company: 'Jejelove',
-      role: 'Mid-Level Flutter Developer',
-      period: '2020 - 2022',
+      role: 'Flutter Developer',
+      period: 'Jan 2020 - Dec 2022',
       location: 'Lagos, Nigeria (Hybrid)',
       companyUrl: 'https://jejelove.org',
       responsibilities: [
-        'Created high-fidelity, interactive mobile user interfaces focusing on micro-animations and accessibility compliance.',
-        'Leveraged Firebase Realtime Database and Cloud Firestore to develop multiplayer in-app social games and chat systems.',
-        'Built automated testing flows using integration_test, saving the QA team roughly 12 hours of manual testing per release.'
+        'Built high-fidelity mobile user interfaces prioritizing micro-animations, screen scaling support, and accessibility guidelines.',
+        'Configured in-app chat systems, real-time messaging updates, and multiplayer logic utilizing Cloud Firestore and Firebase Realtime Database.',
+        'Developed automated widget and integration tests using Flutter\'s testing frameworks to streamline release regression checks.',
+        'Addressed rendering thread blockages by optimizing image caching strategies and auditing widget rebuild cycles.'
       ],
     ),
     Experience(
       id: 'kleiba_exp',
       company: 'Kleiba Technologies',
       role: 'Software Developer Intern',
-      period: '2019 - 2020',
+      period: 'Oct 2019 - Dec 2020',
       location: 'Enugu, Nigeria (Onsite)',
       companyUrl: 'https://kleiba.com',
       responsibilities: [
-        'Developed fullstack features utilizing PHP (Laravel) and Python (Django) to build robust backend web services.',
-        'Built interactive dashboards with HTML5, CSS3, and JavaScript, boosting user interactions by 18%.',
-        'Wrote structural SQL scripts and managed migrations on PostgreSQL databases.'
+        'Developed fullstack features and admin tools utilizing PHP (Laravel) and Python (Django) to support backend web services.',
+        'Constructed responsive web layout designs using HTML5, CSS3, and JavaScript to interface with database components.',
+        'Maintained database integrity by writing structured SQL query scripts and implementing database schema migrations on PostgreSQL databases.',
+        'Participated in weekly standups, sprint planning sessions, and code reviews in an agile engineering environment.'
       ],
     ),
   ];
