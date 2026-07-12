@@ -21,13 +21,13 @@ class FooterSection extends StatelessWidget {
         ),
         _buildSocialIcon(
           Icons.code_rounded,
-          () => Launcher.launchURL('https://github.com/okama-dev'),
+          () => Launcher.launchURL('https://github.com/inositols'),
           isDark,
         ),
         _buildSocialIcon(
           Icons.chat_bubble_outline_rounded,
           () => Launcher.launchWhatsApp(
-            phone: '+2348123456789',
+            phone: '+2349164815270',
             text: 'Hi Okwuchukwu...',
           ),
           isDark,
@@ -35,7 +35,7 @@ class FooterSection extends StatelessWidget {
         _buildSocialIcon(
           Icons.mail_outline_rounded,
           () => Launcher.launchEmail(
-            email: 'okama.dev@gmail.com',
+            email: 'okamainnocent2020@gmail.com',
             subject: 'Inquiry',
           ),
           isDark,

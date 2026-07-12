@@ -239,6 +239,31 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   }
 
   Widget _buildProjectDetails(Project project, bool isDark, bool isMobile) {
+    Color projectThemeColor;
+    IconData projectIcon;
+
+    switch (project.id) {
+      case 'jcommunity':
+        projectThemeColor = AppColors.accent;
+        projectIcon = Icons.event_available_rounded;
+        break;
+      case 'bucapay':
+        projectThemeColor = AppColors.success;
+        projectIcon = Icons.account_balance_wallet_rounded;
+        break;
+      case 'monami':
+        projectThemeColor = Colors.purpleAccent;
+        projectIcon = Icons.shopping_bag_rounded;
+        break;
+      case 'healthlog':
+        projectThemeColor = Colors.tealAccent;
+        projectIcon = Icons.favorite_rounded;
+        break;
+      default:
+        projectThemeColor = AppColors.primary;
+        projectIcon = Icons.developer_mode_rounded;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -246,17 +271,24 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.1),
+            color: projectThemeColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+            border: Border.all(color: projectThemeColor.withValues(alpha: 0.3)),
           ),
-          child: Text(
-            project.role,
-            style: const TextStyle(
-              color: AppColors.accent,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(projectIcon, size: 12, color: projectThemeColor),
+              const SizedBox(width: 6),
+              Text(
+                project.role,
+                style: TextStyle(
+                  color: projectThemeColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 16),
@@ -265,8 +297,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         Text(
           project.title,
           style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w800,
+            fontSize: 32,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -0.5,
           ),
         ),
         const SizedBox(height: 8),
@@ -276,7 +309,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           project.subtitle,
           style: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
             color: isDark ? Colors.white70 : Colors.black.withValues(alpha: 0.7),
           ),
         ),
@@ -287,7 +320,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           project.description,
           style: TextStyle(
             fontSize: 15,
-            height: 1.5,
+            height: 1.6,
             color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
           ),
         ),
@@ -295,28 +328,41 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
         // Features list
         Text(
-          'Key Accomplishments:',
+          'Key System Modules & Accomplishments:',
           style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: isDark ? Colors.white : Colors.black,
+            fontSize: 13,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.5,
+            color: isDark ? Colors.white70 : Colors.black87,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           runSpacing: 8,
           children: project.features.map((f) {
-            return Chip(
-              label: Text(f, style: const TextStyle(fontSize: 12)),
-              backgroundColor: isDark ? Colors.white.withValues(alpha: 0.03) : Colors.black.withValues(alpha: 0.03),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(
-                  color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
-                ),
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: projectThemeColor.withValues(alpha: 0.05),
+                border: Border.all(color: projectThemeColor.withValues(alpha: 0.15)),
+                borderRadius: BorderRadius.circular(20),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.check_circle_outline_rounded, size: 12, color: projectThemeColor),
+                  const SizedBox(width: 6),
+                  Text(
+                    f,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.9),
+                    ),
+                  ),
+                ],
+              ),
             );
           }).toList(),
         ),
@@ -324,32 +370,33 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
         // Tech stack chips
         Text(
-          'Tech Stack:',
+          'Core Stack:',
           style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: isDark ? Colors.white : Colors.black,
+            fontSize: 13,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.5,
+            color: isDark ? Colors.white70 : Colors.black87,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           runSpacing: 8,
           children: project.technologies.map((t) {
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: isDark ? Colors.transparent : Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: AppColors.primary.withValues(alpha: 0.3),
+                  color: projectThemeColor.withValues(alpha: 0.4),
                 ),
               ),
               child: Text(
                 t,
                 style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             );
@@ -359,7 +406,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
         // Action Buttons
         Wrap(
-          spacing: 16,
+          spacing: 12,
           runSpacing: 12,
           children: [
             NeonButton(
@@ -368,9 +415,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Case Study', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text('View Case Study', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
                   SizedBox(width: 8),
-                  Icon(Icons.arrow_forward_rounded, size: 14, color: Colors.white),
+                  Icon(Icons.auto_awesome_mosaic_rounded, size: 14, color: Colors.white),
                 ],
               ),
             ),
@@ -384,7 +431,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   children: [
                     Icon(Icons.code_rounded, size: 16, color: isDark ? Colors.white : Colors.black),
                     const SizedBox(width: 8),
-                    const Text('GitHub', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                    const Text('GitHub', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
@@ -398,7 +445,21 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   children: [
                     Icon(Icons.play_arrow_rounded, size: 16, color: isDark ? Colors.white : Colors.black),
                     const SizedBox(width: 8),
-                    const Text('Play Store', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                    const Text('Play Store', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              ),
+            if (project.appStoreUrl != null)
+              NeonButton(
+                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                onPressed: () => Launcher.launchURL(project.appStoreUrl!),
+                isSecondary: true,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.apple_rounded, size: 16, color: isDark ? Colors.white : Colors.black),
+                    const SizedBox(width: 8),
+                    const Text('App Store', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
@@ -410,7 +471,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Live Demo', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
+                    Text('Live Demo', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
                     const SizedBox(width: 8),
                     Icon(Icons.open_in_new_rounded, size: 14, color: isDark ? Colors.white : Colors.black),
                   ],

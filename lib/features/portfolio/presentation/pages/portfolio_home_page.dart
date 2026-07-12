@@ -9,7 +9,9 @@ import '../bloc/theme/theme_cubit.dart';
 import '../widgets/hero_section.dart';
 import '../widgets/about_section.dart';
 import '../widgets/skills_section.dart';
+import '../widgets/why_work_with_me_section.dart';
 import '../widgets/projects_section.dart';
+import '../widgets/currently_building_section.dart';
 import '../widgets/experience_section.dart';
 import '../widgets/open_source_section.dart';
 import '../widgets/testimonial_section.dart';
@@ -293,6 +295,9 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                   child: SkillsSection(skills: state.skills),
                 ),
 
+                // Why Work With Me
+                const WhyWorkWithMeSection(),
+
                 // 4. Projects
                 Container(
                   key: _projectsKey,
@@ -308,6 +313,9 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                     },
                   ),
                 ),
+
+                // Currently Building
+                const CurrentlyBuildingSection(),
 
                 // 5. Experience
                 Container(

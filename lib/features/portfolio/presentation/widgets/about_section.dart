@@ -46,11 +46,13 @@ class AboutSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          "I am a results-driven Senior Flutter Engineer with a passion for designing reliable architecture and high-performance cross-platform interfaces. Over the past 6+ years, I have built mobile and web apps across fintech, e-commerce, and logistics, collaborating with distributed teams globally.",
+          "I am a results-driven Flutter Engineer with a passion for designing reliable architecture and high-performance cross-platform interfaces. Over the past 6+ years, I have built mobile and web apps across fintech, e-commerce, and logistics, collaborating with distributed teams globally.",
           style: TextStyle(
             fontSize: 16,
             height: 1.6,
-            color: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.8),
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.9)
+                : Colors.black.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 12),
@@ -59,7 +61,9 @@ class AboutSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             height: 1.6,
-            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+            color: isDark
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
         const SizedBox(height: 32),
@@ -81,18 +85,20 @@ class AboutSection extends StatelessWidget {
               blur: 6.0,
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               borderRadius: BorderRadius.circular(20),
-              color: isDark 
-                  ? Colors.white.withValues(alpha: 0.03) 
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.03)
                   : Colors.black.withValues(alpha: 0.03),
-              borderColor: isDark 
-                  ? Colors.white.withValues(alpha: 0.08) 
+              borderColor: isDark
+                  ? Colors.white.withValues(alpha: 0.08)
                   : Colors.black.withValues(alpha: 0.08),
               child: Text(
                 key,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  color: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.9),
+                  color: isDark
+                      ? Colors.white.withValues(alpha: 0.9)
+                      : Colors.black.withValues(alpha: 0.9),
                 ),
               ),
             ).animate(delay: (50 * index).ms).fadeIn(duration: 400.ms).scale();
@@ -102,64 +108,146 @@ class AboutSection extends StatelessWidget {
     );
 
     // Right graphic editor mockup (Dart Class representing Okama)
-    final profileCard = Center(
-      child: SpotlightCard(
-        borderRadius: 16,
-        glowColor: AppColors.accent.withValues(alpha: 0.12),
-        child: Container(
-          width: 500,
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF0F0F13) : const Color(0xFFF3F4F6),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Mock Editor Header
-              Row(
-                children: [
-                  Container(width: 12, height: 12, decoration: const BoxDecoration(color: Colors.redAccent, shape: BoxShape.circle)),
-                  const SizedBox(width: 6),
-                  Container(width: 12, height: 12, decoration: const BoxDecoration(color: Colors.amberAccent, shape: BoxShape.circle)),
-                  const SizedBox(width: 6),
-                  Container(width: 12, height: 12, decoration: const BoxDecoration(color: Colors.greenAccent, shape: BoxShape.circle)),
-                  const Expanded(child: SizedBox()),
-                  Text(
-                    'engineer.dart',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: isDark ? Colors.white38 : Colors.black38,
-                    ),
+    final profileCard =
+        Center(
+              child: SpotlightCard(
+                borderRadius: 16,
+                glowColor: AppColors.accent.withValues(alpha: 0.12),
+                child: Container(
+                  width: 500,
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? const Color(0xFF0F0F13)
+                        : const Color(0xFFF3F4F6),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Mock Editor Header
+                      Row(
+                        children: [
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: const BoxDecoration(
+                              color: Colors.redAccent,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: const BoxDecoration(
+                              color: Colors.amberAccent,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: const BoxDecoration(
+                              color: Colors.greenAccent,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const Expanded(child: SizedBox()),
+                          Text(
+                            'engineer.dart',
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 12,
+                              color: isDark ? Colors.white38 : Colors.black38,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(height: 32, color: Colors.white10),
+
+                      // Code Content
+                      _codeLine(
+                        1,
+                        "class FlutterEngineer {",
+                        Colors.purpleAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        2,
+                        "  final String name = 'Okwuchukwu Okama';",
+                        Colors.cyanAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        3,
+                        "  final String role = 'Senior Flutter Developer';",
+                        Colors.cyanAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        4,
+                        "  final List<String> focus = [",
+                        Colors.amberAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        5,
+                        "    'Clean Architecture', 'Bloc', 'Fintech'",
+                        Colors.greenAccent,
+                        isDark,
+                      ),
+                      _codeLine(6, "  ];", Colors.amberAccent, isDark),
+                      _codeLine(
+                        7,
+                        "  final bool likesInternationalRemote = true;",
+                        Colors.orangeAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        8,
+                        "  final double coffeeLevel = 1.0; // Fully charged",
+                        Colors.grey,
+                        isDark,
+                      ),
+                      _codeLine(9, "  ", Colors.white, isDark),
+                      _codeLine(
+                        10,
+                        "  void code() {",
+                        Colors.purpleAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        11,
+                        "    while (inspired) {",
+                        Colors.purpleAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        12,
+                        "      createStunningApps();",
+                        Colors.blueAccent,
+                        isDark,
+                      ),
+                      _codeLine(
+                        13,
+                        "      optimizePerformance();",
+                        Colors.blueAccent,
+                        isDark,
+                      ),
+                      _codeLine(14, "    }", Colors.purpleAccent, isDark),
+                      _codeLine(15, "  }", Colors.purpleAccent, isDark),
+                      _codeLine(16, "}", Colors.purpleAccent, isDark),
+                    ],
+                  ),
+                ),
               ),
-              const Divider(height: 32, color: Colors.white10),
-              
-              // Code Content
-              _codeLine(1, "class FlutterEngineer {", Colors.purpleAccent, isDark),
-              _codeLine(2, "  final String name = 'Okwuchukwu Okama';", Colors.cyanAccent, isDark),
-              _codeLine(3, "  final String role = 'Senior Flutter Developer';", Colors.cyanAccent, isDark),
-              _codeLine(4, "  final List<String> focus = [", Colors.amberAccent, isDark),
-              _codeLine(5, "    'Clean Architecture', 'Bloc', 'Fintech'", Colors.greenAccent, isDark),
-              _codeLine(6, "  ];", Colors.amberAccent, isDark),
-              _codeLine(7, "  final bool likesInternationalRemote = true;", Colors.orangeAccent, isDark),
-              _codeLine(8, "  final double coffeeLevel = 1.0; // Fully charged", Colors.grey, isDark),
-              _codeLine(9, "  ", Colors.white, isDark),
-              _codeLine(10, "  void code() {", Colors.purpleAccent, isDark),
-              _codeLine(11, "    while (inspired) {", Colors.purpleAccent, isDark),
-              _codeLine(12, "      createStunningApps();", Colors.blueAccent, isDark),
-              _codeLine(13, "      optimizePerformance();", Colors.blueAccent, isDark),
-              _codeLine(14, "    }", Colors.purpleAccent, isDark),
-              _codeLine(15, "  }", Colors.purpleAccent, isDark),
-              _codeLine(16, "}", Colors.purpleAccent, isDark),
-            ],
-          ),
-        ),
-      ),
-    ).animate().fadeIn(duration: 800.ms, delay: 300.ms).slideX(begin: 0.1, end: 0);
+            )
+            .animate()
+            .fadeIn(duration: 800.ms, delay: 300.ms)
+            .slideX(begin: 0.1, end: 0);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -169,11 +257,7 @@ class AboutSection extends StatelessWidget {
       child: isMobile
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                bioColumn,
-                const SizedBox(height: 48),
-                profileCard,
-              ],
+              children: [bioColumn, const SizedBox(height: 48), profileCard],
             )
           : Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +270,12 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget _codeLine(int lineNum, String content, Color highlightColor, bool isDark) {
+  Widget _codeLine(
+    int lineNum,
+    String content,
+    Color highlightColor,
+    bool isDark,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(

@@ -6,6 +6,7 @@ import '../../../../core/widgets/glass_container.dart';
 import '../../../../core/widgets/neon_button.dart';
 import '../../../../core/widgets/spotlight_card.dart';
 import '../../../../core/utils/launcher.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../bloc/portfolio_bloc.dart';
 import '../bloc/portfolio_state.dart';
 
@@ -51,129 +52,157 @@ class _ContactSectionState extends State<ContactSection> {
     final socialInfo = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Availability Pulse Badge
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: AppColors.success.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 6,
+                height: 6,
+                decoration: const BoxDecoration(color: AppColors.success, shape: BoxShape.circle),
+              ).animate(onPlay: (c) => c.repeat())
+               .scale(begin: const Offset(1, 1), end: const Offset(1.6, 1.6), duration: 1000.ms)
+               .fadeOut(duration: 1000.ms),
+              const SizedBox(width: 8),
+              const Text(
+                'OPEN FOR HIRING',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: AppColors.success, letterSpacing: 0.8),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Headline
         ShaderMask(
           shaderCallback: (bounds) => AppColors.primaryGradient.createShader(
             Rect.fromLTWH(0, 0, bounds.width, bounds.height),
           ),
           child: const Text(
-            "Get In Touch",
+            "Let's Build Something Great Together",
             style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w800,
+              fontSize: 38,
+              fontWeight: FontWeight.w900,
               color: Colors.white,
-              letterSpacing: -0.5,
+              letterSpacing: -1.0,
+              height: 1.15,
             ),
           ),
         ),
         const SizedBox(height: 16),
+
+        // Subtitle
         Text(
-          "Let's build something remarkable. I am open to full-time remote developer roles, consultant terms, and contract opportunities worldwide.",
+          "Available for Remote, Contract and Full-time Flutter Opportunities.",
           style: TextStyle(
             fontSize: 16,
-            height: 1.5,
-            color: isDark ? Colors.white70 : Colors.black.withValues(alpha: 0.7),
+            fontWeight: FontWeight.w600,
+            color: isDark ? Colors.white70 : Colors.black87,
+            height: 1.4,
           ),
         ),
-        const SizedBox(height: 36),
-
-        // Direct channels
-        _buildContactChannel(
-          Icons.mail_outline_rounded,
-          'Email Me',
-          'okama.dev@gmail.com',
-          () => Launcher.launchEmail(email: 'okama.dev@gmail.com', subject: 'Inquiry from Portfolio'),
-          isDark,
-        ),
-        _buildContactChannel(
-          Icons.chat_bubble_outline_rounded,
-          'WhatsApp Chat',
-          '+234 812 345 6789',
-          () => Launcher.launchWhatsApp(phone: '+2348123456789', text: 'Hi Okwuchukwu, I visited your portfolio...'),
-          isDark,
-        ),
-        _buildContactChannel(
-          Icons.link_rounded,
-          'LinkedIn Profile',
-          'linkedin.com/in/okwuchukwu-okama',
-          () => Launcher.launchURL('https://linkedin.com/in/okwuchukwu-okama'),
-          isDark,
-        ),
-        _buildContactChannel(
-          Icons.code_rounded,
-          'GitHub Profile',
-          'github.com/okama-dev',
-          () => Launcher.launchURL('https://github.com/okama-dev'),
-          isDark,
-        ),
-
         const SizedBox(height: 32),
-        // Resume Download Call to Action
-        NeonButton(
-          onPressed: () => Launcher.launchURL("https://github.com/okama-dev/resume/raw/main/resume.pdf"),
-          isSecondary: true,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.download_rounded, size: 16, color: isDark ? Colors.white : Colors.black),
-              const SizedBox(width: 8),
-              const Text('Download CV / Resume', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-            ],
+
+        // Description Paragraph
+        Text(
+          "Whether you need an architect to decouple a massive system, implement a bulletproof offline sync algorithm, optimize animations to hit 120 FPS, or build a secure off-ramp fintech portal—I deliver production-grade results.",
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.6,
+            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
           ),
         ),
+        const SizedBox(height: 40),
 
-        const SizedBox(height: 32),
-        // Calendly Booking Card
-        GlassContainer(
-          blur: 10,
-          padding: const EdgeInsets.all(20),
-          borderRadius: BorderRadius.circular(16),
-          color: isDark ? Colors.white.withValues(alpha: 0.02) : Colors.black.withValues(alpha: 0.02),
-          borderColor: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.calendar_today_rounded, color: AppColors.accent, size: 18),
-                  const SizedBox(width: 10),
-                  Text(
-                    'Schedule a Sync',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.black,
-                    ),
+        // 7 CTA Buttons Grid / Wrap
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            // 1. Hire Me (gradient primary)
+            NeonButton(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              onPressed: () {
+                // Focus direct message name input field
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Write your details in the direct message form!'),
+                    duration: Duration(seconds: 2),
+                    behavior: SnackBarBehavior.floating,
                   ),
+                );
+              },
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Hire Me', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                  SizedBox(width: 8),
+                  Icon(Icons.mail_outline_rounded, size: 16, color: Colors.white),
                 ],
               ),
-              const SizedBox(height: 12),
-              Text(
-                'Want to skip typing? Select a slot on my calendar and let\'s sync up for a discovery chat.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 20),
-              NeonButton(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                onPressed: () => Launcher.launchURL('https://calendly.com/okama-dev/15min'),
-                borderRadius: 8,
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Book a 15-Min Chat',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(Icons.arrow_forward_rounded, size: 14, color: Colors.white),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+
+            // 2. Schedule a Call (amber outline)
+            _buildCTAOutlineButton(
+              label: 'Schedule a Call',
+              icon: Icons.calendar_today_rounded,
+              color: Colors.amber,
+              onTap: () => Launcher.launchURL('https://calendly.com/okama-dev/15min'),
+              isDark: isDark,
+            ),
+
+            // 3. Download Resume (emerald outline)
+            _buildCTAOutlineButton(
+              label: 'Download Resume',
+              icon: Icons.download_rounded,
+              color: Colors.teal,
+              onTap: () => Launcher.launchURL("https://github.com/okama-dev/resume/raw/main/resume.pdf"),
+              isDark: isDark,
+            ),
+
+            // 4. Email Me
+            _buildCTASocialButton(
+              label: 'Email Me',
+              icon: Icons.alternate_email_rounded,
+              color: Colors.redAccent,
+              onTap: () => Launcher.launchEmail(email: 'okama.dev@gmail.com', subject: 'Collaboration Inquiry'),
+              isDark: isDark,
+            ),
+
+            // 5. LinkedIn
+            _buildCTASocialButton(
+              label: 'LinkedIn',
+              icon: Icons.link_rounded,
+              color: Colors.blueAccent,
+              onTap: () => Launcher.launchURL('https://linkedin.com/in/okwuchukwu-okama'),
+              isDark: isDark,
+            ),
+
+            // 6. GitHub
+            _buildCTASocialButton(
+              label: 'GitHub',
+              icon: Icons.code_rounded,
+              color: isDark ? Colors.white : Colors.black,
+              onTap: () => Launcher.launchURL('https://github.com/okama-dev'),
+              isDark: isDark,
+            ),
+
+            // 7. WhatsApp
+            _buildCTASocialButton(
+              label: 'WhatsApp',
+              icon: Icons.chat_bubble_outline_rounded,
+              color: Colors.green,
+              onTap: () => Launcher.launchWhatsApp(phone: '+2348123456789', text: 'Hi Okwuchukwu, let\'s collaborate!'),
+              isDark: isDark,
+            ),
+          ],
         ),
       ],
     );
@@ -328,56 +357,79 @@ class _ContactSectionState extends State<ContactSection> {
     );
   }
 
-  Widget _buildContactChannel(
-    IconData icon,
-    String label,
-    String detail,
-    VoidCallback onTap,
-    bool isDark,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.black.withValues(alpha: 0.04),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
-                  width: 1,
+  Widget _buildCTAOutlineButton({
+    required String label,
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.05),
+            border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 16, color: color),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : Colors.black87,
                 ),
               ),
-              child: Icon(icon, color: AppColors.primary, size: 20),
-            ),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white54 : Colors.black54,
-                  ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCTASocialButton({
+    required String label,
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: isDark ? Colors.white.withValues(alpha: 0.02) : Colors.black.withValues(alpha: 0.02),
+            border: Border.all(color: isDark ? Colors.white12 : Colors.black12),
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 16, color: color),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  color: isDark ? Colors.white70 : Colors.black87,
                 ),
-                Text(
-                  detail,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -9,7 +9,17 @@ class Project {
   final String role;
   final String? githubUrl;
   final String? playStoreUrl;
+  final String? appStoreUrl;
   final String? liveDemoUrl;
+  
+  // Rich case study content fields
+  final String problemStatement;
+  final String roleDescription;
+  final String architectureDescription;
+  final String challengesDescription;
+  final String solutionDescription;
+  final String resultDescription;
+  final String lessonsLearned;
 
   const Project({
     required this.id,
@@ -22,7 +32,15 @@ class Project {
     required this.role,
     this.githubUrl,
     this.playStoreUrl,
+    this.appStoreUrl,
     this.liveDemoUrl,
+    this.problemStatement = '',
+    this.roleDescription = '',
+    this.architectureDescription = '',
+    this.challengesDescription = '',
+    this.solutionDescription = '',
+    this.resultDescription = '',
+    this.lessonsLearned = '',
   });
 }
 

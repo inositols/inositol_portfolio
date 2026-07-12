@@ -22,14 +22,6 @@ class AchievementsSection extends StatelessWidget {
         'color': AppColors.primary,
       },
       {
-        'value': 25,
-        'suffix': '+',
-        'label': 'Projects Delivered',
-        'sub': 'Corporate & Contract',
-        'icon': Icons.check_circle_outline_rounded,
-        'color': AppColors.accent,
-      },
-      {
         'value': 12,
         'suffix': '+',
         'label': 'Apps Built',
@@ -38,28 +30,44 @@ class AchievementsSection extends StatelessWidget {
         'color': Colors.purpleAccent,
       },
       {
-        'value': 1800,
+        'value': 25,
         'suffix': '+',
-        'label': 'GitHub Contributions',
-        'sub': 'Past 12 Months',
-        'icon': Icons.trending_up_rounded,
-        'color': AppColors.success,
+        'label': 'Projects Delivered',
+        'sub': 'Corporate & Contract',
+        'icon': Icons.check_circle_outline_rounded,
+        'color': AppColors.accent,
       },
       {
         'value': 18,
         'suffix': '+',
         'label': 'Technologies',
-        'sub': 'Languages & Frameworks',
+        'sub': 'Frameworks & Tools',
         'icon': Icons.psychology_rounded,
         'color': Colors.pinkAccent,
       },
       {
         'value': 4,
         'suffix': '+',
-        'label': 'Open Source Projects',
+        'label': 'Open Source Packages',
         'sub': 'Ecosystem Libraries',
-        'icon': Icons.code_rounded,
+        'icon': Icons.inventory_2_rounded,
         'color': Colors.orangeAccent,
+      },
+      {
+        'value': 40,
+        'suffix': '+',
+        'label': 'GitHub Repos',
+        'sub': 'Public & Collaborative',
+        'icon': Icons.code_rounded,
+        'color': AppColors.success,
+      },
+      {
+        'value': 10,
+        'suffix': '+',
+        'label': 'Production Apps',
+        'sub': 'FinTech & Enterprise',
+        'icon': Icons.phone_android_rounded,
+        'color': Colors.redAccent,
       },
     ];
 
@@ -72,10 +80,10 @@ class AchievementsSection extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isMobile ? 2 : (ResponsiveLayout.isTablet(context) ? 3 : 6),
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-          mainAxisExtent: 160,
+          crossAxisCount: isMobile ? 2 : (ResponsiveLayout.isTablet(context) ? 4 : 7),
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          mainAxisExtent: 190,
         ),
         itemCount: achievements.length,
         itemBuilder: (context, index) {
@@ -84,7 +92,7 @@ class AchievementsSection extends StatelessWidget {
 
           return GlassContainer(
             blur: 10.0,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             color: isDark ? Colors.white.withValues(alpha: 0.02) : Colors.black.withValues(alpha: 0.01),
             borderColor: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
             child: Column(
