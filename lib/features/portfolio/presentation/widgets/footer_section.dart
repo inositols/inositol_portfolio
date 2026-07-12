@@ -26,12 +26,18 @@ class FooterSection extends StatelessWidget {
         ),
         _buildSocialIcon(
           Icons.chat_bubble_outline_rounded,
-          () => Launcher.launchWhatsApp(phone: '+2348123456789', text: 'Hi Okwuchukwu...'),
+          () => Launcher.launchWhatsApp(
+            phone: '+2348123456789',
+            text: 'Hi Okwuchukwu...',
+          ),
           isDark,
         ),
         _buildSocialIcon(
           Icons.mail_outline_rounded,
-          () => Launcher.launchEmail(email: 'okama.dev@gmail.com', subject: 'Inquiry'),
+          () => Launcher.launchEmail(
+            email: 'okama.dev@gmail.com',
+            subject: 'Inquiry',
+          ),
           isDark,
         ),
       ],
@@ -56,10 +62,7 @@ class FooterSection extends StatelessWidget {
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildCopyright(isDark),
-                    socialRow,
-                  ],
+                  children: [_buildCopyright(isDark), socialRow],
                 ),
         ],
       ),
@@ -71,7 +74,9 @@ class FooterSection extends StatelessWidget {
       '© ${DateTime.now().year} Okwuchukwu Okama. Built with Flutter Web. All rights reserved.',
       style: TextStyle(
         fontSize: 12,
-        color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+        color: isDark
+            ? AppColors.textSecondaryDark
+            : AppColors.textSecondaryLight,
       ),
     );
   }
@@ -86,7 +91,9 @@ class FooterSection extends StatelessWidget {
           foregroundColor: isDark ? Colors.white70 : Colors.black87,
           hoverColor: AppColors.primary.withValues(alpha: 0.1),
           side: BorderSide(
-            color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.08)
+                : Colors.black.withValues(alpha: 0.08),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
