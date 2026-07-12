@@ -31,7 +31,7 @@ class GitHubApiClient {
         stars: 128,
         forks: 34,
         language: 'Dart',
-        htmlUrl: 'https://github.com/okama-dev/certificate_canvas',
+        htmlUrl: 'https://github.com/inositols/certificate_canvas',
       ),
       GitHubRepo(
         name: 'flutter_clean_bloc',
@@ -39,7 +39,7 @@ class GitHubApiClient {
         stars: 342,
         forks: 89,
         language: 'Dart',
-        htmlUrl: 'https://github.com/okama-dev/flutter_clean_bloc',
+        htmlUrl: 'https://github.com/inositols/flutter_clean_bloc',
       ),
       GitHubRepo(
         name: 'shorebird_code_push_workflow',
@@ -47,7 +47,7 @@ class GitHubApiClient {
         stars: 64,
         forks: 12,
         language: 'YAML',
-        htmlUrl: 'https://github.com/okama-dev/shorebird_code_push_workflow',
+        htmlUrl: 'https://github.com/inositols/shorebird_code_push_workflow',
       ),
       GitHubRepo(
         name: 'crypto_offramp_sdk',
@@ -55,7 +55,7 @@ class GitHubApiClient {
         stars: 92,
         forks: 18,
         language: 'Dart',
-        htmlUrl: 'https://github.com/okama-dev/crypto_offramp_sdk',
+        htmlUrl: 'https://github.com/inositols/crypto_offramp_sdk',
       ),
     ];
   }

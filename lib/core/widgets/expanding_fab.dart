@@ -10,7 +10,8 @@ class ExpandingFab extends StatefulWidget {
   State<ExpandingFab> createState() => _ExpandingFabState();
 }
 
-class _ExpandingFabState extends State<ExpandingFab> with SingleTickerProviderStateMixin {
+class _ExpandingFabState extends State<ExpandingFab>
+    with SingleTickerProviderStateMixin {
   bool _isOpen = false;
   late AnimationController _controller;
   late Animation<double> _expandAnimation;
@@ -54,31 +55,32 @@ class _ExpandingFabState extends State<ExpandingFab> with SingleTickerProviderSt
       {
         'icon': Icons.download_rounded,
         'tooltip': 'Download Resume',
-        'url': 'https://github.com/okama-dev/resume/raw/main/resume.pdf',
+        'url':
+            'https://docs.google.com/document/d/1PwgMaDE2wzY8XivFpLi8vkyFxGYBMMqy/edit?usp=drive_link&ouid=103296075118629881891&rtpof=true&sd=true',
         'color': Colors.amberAccent,
       },
       {
         'icon': Icons.code_rounded,
         'tooltip': 'GitHub',
-        'url': 'https://github.com/okama-dev',
+        'url': 'https://github.com/inositols',
         'color': Colors.purpleAccent,
       },
       {
         'icon': Icons.link_rounded,
         'tooltip': 'LinkedIn',
-        'url': 'https://linkedin.com/in/okwuchukwu-okama',
+        'url': 'https://www.linkedin.com/in/innocentokama/',
         'color': Colors.blueAccent,
       },
       {
         'icon': Icons.chat_bubble_outline_rounded,
         'tooltip': 'WhatsApp',
-        'url': 'https://wa.me/2348123456789?text=Hi%20Okwuchukwu',
+        'url': 'https://wa.me/2349164815270?text=Hi%20Okwuchukwu',
         'color': AppColors.success,
       },
       {
         'icon': Icons.email_outlined,
         'tooltip': 'Email',
-        'url': 'mailto:okama.dev@gmail.com',
+        'url': 'mailto:okamainnocent2020@gmail.com',
         'color': AppColors.accent,
       },
     ];
@@ -97,11 +99,17 @@ class _ExpandingFabState extends State<ExpandingFab> with SingleTickerProviderSt
                 animation: _expandAnimation,
                 builder: (context, child) {
                   return Transform.translate(
-                    offset: Offset(0.0, (1.0 - _expandAnimation.value) * 15 * (5 - indexOffset)),
+                    offset: Offset(
+                      0.0,
+                      (1.0 - _expandAnimation.value) * 15 * (5 - indexOffset),
+                    ),
                     child: Opacity(
                       opacity: _expandAnimation.value,
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0, right: 4.0),
+                        padding: const EdgeInsets.only(
+                          bottom: 12.0,
+                          right: 4.0,
+                        ),
                         child: Tooltip(
                           message: item['tooltip'],
                           child: MouseRegion(
@@ -117,17 +125,19 @@ class _ExpandingFabState extends State<ExpandingFab> with SingleTickerProviderSt
                                 height: 42,
                                 shape: BoxShape.circle,
                                 padding: EdgeInsets.zero,
-                                borderColor: isDark 
-                                    ? Colors.white.withValues(alpha: 0.1) 
+                                borderColor: isDark
+                                    ? Colors.white.withValues(alpha: 0.1)
                                     : Colors.black.withValues(alpha: 0.08),
-                                color: isDark 
-                                    ? Colors.black.withValues(alpha: 0.7) 
+                                color: isDark
+                                    ? Colors.black.withValues(alpha: 0.7)
                                     : Colors.white.withValues(alpha: 0.7),
                                 child: Center(
                                   child: Icon(
                                     item['icon'] as IconData,
                                     size: 18,
-                                    color: isDark ? Colors.white70 : Colors.black87,
+                                    color: isDark
+                                        ? Colors.white70
+                                        : Colors.black87,
                                   ),
                                 ),
                               ),
@@ -154,17 +164,22 @@ class _ExpandingFabState extends State<ExpandingFab> with SingleTickerProviderSt
               height: 52,
               shape: BoxShape.circle,
               padding: EdgeInsets.zero,
-              borderColor: isDark 
-                  ? AppColors.primary.withValues(alpha: 0.3) 
+              borderColor: isDark
+                  ? AppColors.primary.withValues(alpha: 0.3)
                   : AppColors.primary.withValues(alpha: 0.2),
-              color: isDark 
-                  ? AppColors.primary.withValues(alpha: 0.25) 
+              color: isDark
+                  ? AppColors.primary.withValues(alpha: 0.25)
                   : AppColors.primary.withValues(alpha: 0.15),
               child: Center(
                 child: RotationTransition(
-                  turns: Tween<double>(begin: 0.0, end: 0.125).animate(_expandAnimation), // 45 degree turn
+                  turns: Tween<double>(
+                    begin: 0.0,
+                    end: 0.125,
+                  ).animate(_expandAnimation), // 45 degree turn
                   child: Icon(
-                    _isOpen ? Icons.add_rounded : Icons.connect_without_contact_rounded,
+                    _isOpen
+                        ? Icons.add_rounded
+                        : Icons.connect_without_contact_rounded,
                     size: 24,
                     color: isDark ? Colors.white : Colors.black87,
                   ),

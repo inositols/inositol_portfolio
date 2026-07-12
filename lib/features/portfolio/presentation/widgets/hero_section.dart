@@ -232,7 +232,7 @@ class HeroSection extends StatelessWidget {
                               const Divider(height: 20, color: Colors.white10),
                               _buildFactItem(
                                 'EXPERIENCE',
-                                '6+ Years Developer Practice',
+                                '4+ Years Developer Practice',
                                 Icons.calendar_today_rounded,
                                 isDark,
                               ),
@@ -267,7 +267,7 @@ class HeroSection extends StatelessWidget {
                               Expanded(
                                 child: _buildFactItem(
                                   'EXPERIENCE',
-                                  '6+ Years Practice',
+                                  '4+ Years Practice',
                                   Icons.calendar_today_rounded,
                                   isDark,
                                 ),
@@ -360,7 +360,7 @@ class HeroSection extends StatelessWidget {
                   NeonButton(
                         onPressed: () {
                           Launcher.launchURL(
-                            "https://github.com/okama-dev/resume/raw/main/resume.pdf",
+                            "https://github.com/inositols/resume/raw/main/resume.pdf",
                           );
                         },
                         isSecondary: true,
@@ -401,17 +401,17 @@ class HeroSection extends StatelessWidget {
       {
         'icon': Icons.code_rounded, // GitHub representation
         'tooltip': 'GitHub',
-        'url': 'https://github.com/okama-dev',
+        'url': 'https://github.com/inositols',
       },
       {
         'icon': Icons.link_rounded, // LinkedIn representation
         'tooltip': 'LinkedIn',
-        'url': 'https://linkedin.com/in/okwuchukwu-okama',
+        'url': 'https://www.linkedin.com/in/innocentokama/',
       },
       {
         'icon': Icons.email_outlined,
         'tooltip': 'Email',
-        'url': 'mailto:okama.dev@gmail.com',
+        'url': 'mailto:okamainnocent2020@gmail.com',
       },
       {
         'icon': Icons.chat_bubble_outline_rounded, // WhatsApp

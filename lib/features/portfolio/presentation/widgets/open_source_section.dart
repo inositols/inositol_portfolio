@@ -463,12 +463,12 @@ class OpenSourceSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '@okama-dev',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    '@inositols',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 2),
-                  Text(
-                    'Senior Flutter Architect',
+                  const SizedBox(height: 2),
+                  const Text(
+                    'Flutter Mobile Engineer',
                     style: TextStyle(fontSize: 11, color: Colors.grey),
                   ),
                 ],

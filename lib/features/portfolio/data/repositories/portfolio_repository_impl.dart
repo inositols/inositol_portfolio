@@ -35,6 +35,6 @@ class PortfolioRepositoryImpl implements PortfolioRepository {
 
   @override
   Future<List<GitHubRepo>> getGitHubRepos() async {
-    return gitHubApiClient.fetchUserRepos('okama-dev');
+    return gitHubApiClient.fetchUserRepos('inositols');
   }
 }

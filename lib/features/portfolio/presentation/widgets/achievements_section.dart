@@ -14,7 +14,7 @@ class AchievementsSection extends StatelessWidget {
 
     final List<Map<String, dynamic>> achievements = [
       {
-        'value': 6,
+        'value': 4,
         'suffix': '+',
         'label': 'Years Experience',
         'sub': 'Mobile App Dev',
@@ -22,7 +22,7 @@ class AchievementsSection extends StatelessWidget {
         'color': AppColors.primary,
       },
       {
-        'value': 12,
+        'value': 8,
         'suffix': '+',
         'label': 'Apps Built',
         'sub': 'Store Published',
@@ -30,7 +30,7 @@ class AchievementsSection extends StatelessWidget {
         'color': Colors.purpleAccent,
       },
       {
-        'value': 25,
+        'value': 12,
         'suffix': '+',
         'label': 'Projects Delivered',
         'sub': 'Corporate & Contract',
@@ -38,7 +38,7 @@ class AchievementsSection extends StatelessWidget {
         'color': AppColors.accent,
       },
       {
-        'value': 18,
+        'value': 12,
         'suffix': '+',
         'label': 'Technologies',
         'sub': 'Frameworks & Tools',
@@ -46,7 +46,7 @@ class AchievementsSection extends StatelessWidget {
         'color': Colors.pinkAccent,
       },
       {
-        'value': 4,
+        'value': 1,
         'suffix': '+',
         'label': 'Open Source Packages',
         'sub': 'Ecosystem Libraries',
@@ -54,7 +54,7 @@ class AchievementsSection extends StatelessWidget {
         'color': Colors.orangeAccent,
       },
       {
-        'value': 40,
+        'value': 20,
         'suffix': '+',
         'label': 'GitHub Repos',
         'sub': 'Public & Collaborative',
@@ -62,7 +62,7 @@ class AchievementsSection extends StatelessWidget {
         'color': AppColors.success,
       },
       {
-        'value': 10,
+        'value': 4,
         'suffix': '+',
         'label': 'Production Apps',
         'sub': 'FinTech & Enterprise',

@@ -46,7 +46,7 @@ class AboutSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          "I am a results-driven Flutter Engineer with a passion for designing reliable architecture and high-performance cross-platform interfaces. Over the past 6+ years, I have built mobile and web apps across fintech, e-commerce, and logistics, collaborating with distributed teams globally.",
+          "I am a results-driven Flutter Engineer with a passion for designing reliable architecture and high-performance cross-platform interfaces. Over the past 4+ years, I have built mobile and web apps across fintech, e-commerce, and logistics, collaborating with distributed teams globally.",
           style: TextStyle(
             fontSize: 16,
             height: 1.6,
@@ -183,7 +183,7 @@ class AboutSection extends StatelessWidget {
                       ),
                       _codeLine(
                         3,
-                        "  final String role = 'Senior Flutter Developer';",
+                        "  final String role = 'Flutter Mobile Engineer';",
                         Colors.cyanAccent,
                         isDark,
                       ),

@@ -154,7 +154,7 @@ class _ContactSectionState extends State<ContactSection> {
               label: 'Schedule a Call',
               icon: Icons.calendar_today_rounded,
               color: Colors.amber,
-              onTap: () => Launcher.launchURL('https://calendly.com/okama-dev/15min'),
+              onTap: () => Launcher.launchWhatsApp(phone: '+2349164815270', text: 'Hi Okwuchukwu, I would like to schedule a call with you.'),
               isDark: isDark,
             ),
 
@@ -163,7 +163,7 @@ class _ContactSectionState extends State<ContactSection> {
               label: 'Download Resume',
               icon: Icons.download_rounded,
               color: Colors.teal,
-              onTap: () => Launcher.launchURL("https://github.com/okama-dev/resume/raw/main/resume.pdf"),
+              onTap: () => Launcher.launchURL("https://github.com/inositols/resume/raw/main/resume.pdf"),
               isDark: isDark,
             ),
 
@@ -172,7 +172,7 @@ class _ContactSectionState extends State<ContactSection> {
               label: 'Email Me',
               icon: Icons.alternate_email_rounded,
               color: Colors.redAccent,
-              onTap: () => Launcher.launchEmail(email: 'okama.dev@gmail.com', subject: 'Collaboration Inquiry'),
+              onTap: () => Launcher.launchEmail(email: 'okamainnocent2020@gmail.com', subject: 'Collaboration Inquiry'),
               isDark: isDark,
             ),
 
@@ -181,7 +181,7 @@ class _ContactSectionState extends State<ContactSection> {
               label: 'LinkedIn',
               icon: Icons.link_rounded,
               color: Colors.blueAccent,
-              onTap: () => Launcher.launchURL('https://linkedin.com/in/okwuchukwu-okama'),
+              onTap: () => Launcher.launchURL('https://www.linkedin.com/in/innocentokama/'),
               isDark: isDark,
             ),
 
@@ -190,7 +190,7 @@ class _ContactSectionState extends State<ContactSection> {
               label: 'GitHub',
               icon: Icons.code_rounded,
               color: isDark ? Colors.white : Colors.black,
-              onTap: () => Launcher.launchURL('https://github.com/okama-dev'),
+              onTap: () => Launcher.launchURL('https://github.com/inositols'),
               isDark: isDark,
             ),
 
@@ -199,7 +199,7 @@ class _ContactSectionState extends State<ContactSection> {
               label: 'WhatsApp',
               icon: Icons.chat_bubble_outline_rounded,
               color: Colors.green,
-              onTap: () => Launcher.launchWhatsApp(phone: '+2348123456789', text: 'Hi Okwuchukwu, let\'s collaborate!'),
+              onTap: () => Launcher.launchWhatsApp(phone: '+2349164815270', text: 'Hi Okwuchukwu, let\'s collaborate!'),
               isDark: isDark,
             ),
           ],
