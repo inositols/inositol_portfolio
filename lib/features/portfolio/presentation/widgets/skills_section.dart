@@ -20,7 +20,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Flutter',
         icon: Icons.flutter_dash_rounded,
-        years: 6,
+        years: 4,
         confidence: 0.98,
         glowColor: Colors.blueAccent,
         explanation: 'Architecting modular cross-platform apps using high-fidelity rendering, native platform channels, and adaptive layouts.',
@@ -29,7 +29,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Firebase',
         icon: Icons.local_fire_department_rounded,
-        years: 5,
+        years: 4,
         confidence: 0.92,
         glowColor: Colors.orangeAccent,
         explanation: 'Deploying secure Cloud Firestore structures, Firebase Auth rules, FCM notifications, and serverless Cloud Functions.',
@@ -38,7 +38,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Bloc',
         icon: Icons.loop_rounded,
-        years: 5,
+        years: 4,
         confidence: 0.98,
         glowColor: Colors.cyanAccent,
         explanation: 'Decoupling event-driven states from user layouts. Ensuring highly predictable data streams and testing isolation.',
@@ -47,7 +47,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Clean Architecture',
         icon: Icons.layers_outlined,
-        years: 5,
+        years: 4,
         confidence: 0.96,
         glowColor: Colors.purpleAccent,
         explanation: 'Separating codebases into isolated Domain, Data, and Presentation layers to support massive scaling and modular testing.',
@@ -56,7 +56,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'REST APIs',
         icon: Icons.settings_ethernet_rounded,
-        years: 6,
+        years: 4,
         confidence: 0.95,
         glowColor: Colors.pinkAccent,
         explanation: 'Integrating secure, low-latency REST endpoints, token handshakes, JSON serialization, and automated error mapping.',
@@ -65,7 +65,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'State Management',
         icon: Icons.schema_rounded,
-        years: 6,
+        years: 4,
         confidence: 0.95,
         glowColor: Colors.indigoAccent,
         explanation: 'Directing complex layout bindings utilizing state structures like BLoC, Riverpod, and ChangeNotifier controllers.',
@@ -74,7 +74,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Performance Optimization',
         icon: Icons.speed_rounded,
-        years: 5,
+        years: 4,
         confidence: 0.94,
         glowColor: Colors.amberAccent,
         explanation: 'Achieving 60/120fps frame rates with multi-threaded Isolates, custom painters, lazy-list rendering, and asset caching.',
@@ -83,7 +83,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Offline-first Apps',
         icon: Icons.cloud_off_rounded,
-        years: 5,
+        years: 4,
         confidence: 0.95,
         glowColor: Colors.teal,
         explanation: 'Building local sync queues, Hive document indexing, secure DB encryption via SQLCipher, and offline-signed operations.',
@@ -92,7 +92,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Google Maps',
         icon: Icons.map_rounded,
-        years: 4,
+        years: 3,
         confidence: 0.88,
         glowColor: Colors.redAccent,
         explanation: 'Implementing live user tracking, custom map styles, polygon search zoning, and optimized marker clustering.',
@@ -101,7 +101,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Push Notifications',
         icon: Icons.notifications_active_rounded,
-        years: 4,
+        years: 3,
         confidence: 0.90,
         glowColor: Colors.tealAccent,
         explanation: 'Delivering interactive background notifications, push payloads via FCM, and local scheduling handlers.',
@@ -110,7 +110,7 @@ class SkillsSection extends StatelessWidget {
       _ExpertiseData(
         name: 'Payments',
         icon: Icons.credit_card_rounded,
-        years: 4,
+        years: 3,
         confidence: 0.92,
         glowColor: Colors.lightGreenAccent,
         explanation: 'Integrating mobile card processing via Stripe SDK, web payment sessions, and secure crypto fiat payout mechanisms.',
