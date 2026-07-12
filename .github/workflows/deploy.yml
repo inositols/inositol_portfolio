@@ -1,0 +1,58 @@
+name: Deploy Flutter Web to Vercel
+
+on:
+  push:
+    branches:
+      - master # Triggers the workflow on push to the master branch
+
+jobs:
+  deploy:
+    name: Build and Deploy to Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the source code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Flutter environment
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+
+      # Step 3: Install Flutter dependencies
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # Step 4: Build optimized production release for the web
+      - name: Build Web Application
+        run: flutter build web --release --web-renderer canvaskit
+
+      # Step 5: Automatically generate vercel.json in the project root and copy it to the build output directory
+      - name: Generate SPA Routing Configuration (vercel.json)
+        run: |
+          cat << 'EOF' > vercel.json
+          {
+            "cleanUrls": true,
+            "rewrites": [
+              { "source": "/(.*)", "destination": "/index.html" }
+            ]
+          }
+          EOF
+          cp vercel.json build/web/vercel.json
+
+      # Step 6: Install Vercel CLI
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      # Step 7: Deploy the compiled output directly to Vercel
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          vercel deploy build/web --prod --token=$VERCEL_TOKEN --yes
