@@ -24,7 +24,7 @@ class AchievementsSection extends StatelessWidget {
       {
         'value': 25,
         'suffix': '+',
-        'label': 'Completed Projects',
+        'label': 'Projects Delivered',
         'sub': 'Corporate & Contract',
         'icon': Icons.check_circle_outline_rounded,
         'color': AppColors.accent,
@@ -32,8 +32,8 @@ class AchievementsSection extends StatelessWidget {
       {
         'value': 12,
         'suffix': '+',
-        'label': 'Published Apps',
-        'sub': 'App Store & Play Store',
+        'label': 'Apps Built',
+        'sub': 'Store Published',
         'icon': Icons.cloud_done_rounded,
         'color': Colors.purpleAccent,
       },
@@ -44,6 +44,22 @@ class AchievementsSection extends StatelessWidget {
         'sub': 'Past 12 Months',
         'icon': Icons.trending_up_rounded,
         'color': AppColors.success,
+      },
+      {
+        'value': 18,
+        'suffix': '+',
+        'label': 'Technologies',
+        'sub': 'Languages & Frameworks',
+        'icon': Icons.psychology_rounded,
+        'color': Colors.pinkAccent,
+      },
+      {
+        'value': 4,
+        'suffix': '+',
+        'label': 'Open Source Projects',
+        'sub': 'Ecosystem Libraries',
+        'icon': Icons.code_rounded,
+        'color': Colors.orangeAccent,
       },
     ];
 
@@ -56,7 +72,7 @@ class AchievementsSection extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isMobile ? 2 : 4,
+          crossAxisCount: isMobile ? 2 : (ResponsiveLayout.isTablet(context) ? 3 : 6),
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           mainAxisExtent: 160,

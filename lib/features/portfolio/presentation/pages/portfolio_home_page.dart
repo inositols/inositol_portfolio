@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../../core/widgets/macos_dock.dart';
 import '../../../../core/widgets/particle_background.dart';
-import '../../../../core/widgets/glass_container.dart';
 import '../bloc/portfolio_bloc.dart';
 import '../bloc/portfolio_state.dart';
 import '../bloc/theme/theme_cubit.dart';
@@ -20,6 +17,8 @@ import '../widgets/blog_section.dart';
 import '../widgets/achievements_section.dart';
 import '../widgets/contact_section.dart';
 import '../widgets/footer_section.dart';
+import '../widgets/floating_navbar.dart';
+import '../../../../core/widgets/expanding_fab.dart';
 
 class PortfolioHomePage extends StatefulWidget {
   const PortfolioHomePage({super.key});
@@ -30,9 +29,13 @@ class PortfolioHomePage extends StatefulWidget {
 
 class _PortfolioHomePageState extends State<PortfolioHomePage> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double _scrollProgress = 0.0;
   int _activeIndex = 0;
   bool _showBackToTop = false;
+
+  double _lastScrollOffset = 0.0;
+  bool _isNavbarVisible = true;
 
   // Global Keys for scrolling to sections
   final GlobalKey _heroKey = GlobalKey();
@@ -61,7 +64,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
     ];
 
     _scrollController.addListener(_onScroll);
-    
+
     // Load portfolio data
     context.read<PortfolioBloc>().loadPortfolioData();
   }
@@ -79,9 +82,11 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
     // Calculate scroll progress percentage
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    
+
     setState(() {
-      _scrollProgress = maxScroll > 0 ? (currentScroll / maxScroll).clamp(0.0, 1.0) : 0.0;
+      _scrollProgress = maxScroll > 0
+          ? (currentScroll / maxScroll).clamp(0.0, 1.0)
+          : 0.0;
       _showBackToTop = currentScroll > 500;
     });
 
@@ -111,11 +116,28 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
         _activeIndex = newActiveIndex;
       });
     }
+
+    // Scroll Direction detection for Navbar Auto-hide
+    final bool isScrollingDown = currentScroll > _lastScrollOffset;
+    if (isScrollingDown && currentScroll > 150) {
+      if (_isNavbarVisible) {
+        setState(() {
+          _isNavbarVisible = false;
+        });
+      }
+    } else {
+      if (!_isNavbarVisible) {
+        setState(() {
+          _isNavbarVisible = true;
+        });
+      }
+    }
+    _lastScrollOffset = currentScroll;
   }
 
   void _scrollToSection(int index) {
     if (index < 0 || index >= _sectionKeys.length) return;
-    
+
     final key = _sectionKeys[index];
     final context = key.currentContext;
     if (context != null) {
@@ -133,6 +155,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
     final isDark = context.watch<ThemeCubit>().isDarkMode;
 
     return Scaffold(
+      key: _scaffoldKey,
       endDrawer: isMobile ? _buildMobileDrawer(isDark) : null,
       body: Stack(
         children: [
@@ -143,7 +166,9 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                 builder: (context, state) {
                   if (state is PortfolioInitial || state is PortfolioLoading) {
                     return const Center(
-                      child: CircularProgressIndicator(color: AppColors.primary),
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
                     );
                   } else if (state is PortfolioError) {
                     return Center(
@@ -169,7 +194,9 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
             child: Container(
               height: 4,
               alignment: Alignment.centerLeft,
-              color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05),
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : Colors.black.withValues(alpha: 0.05),
               child: FractionallySizedBox(
                 widthFactor: _scrollProgress,
                 child: Container(
@@ -181,34 +208,28 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
             ),
           ),
 
-          // Floating macOS Nav Dock (Tablet & Desktop only)
-          if (!isMobile)
-            Positioned(
-              bottom: 24,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: MacosDock(
-                  activeIndex: _activeIndex,
-                  onTabSelected: _scrollToSection,
-                  isDarkMode: isDark,
-                  onThemeToggle: () => context.read<ThemeCubit>().toggleTheme(),
-                ),
-              ).animate().fadeIn(duration: 800.ms, delay: 1000.ms).slideY(begin: 0.5, end: 0),
+          // Floating Glassmorphic Navbar (Sticky, animated hide/show)
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            top: _isNavbarVisible ? (isMobile ? 12 : 24) : -80,
+            left: 0,
+            right: 0,
+            child: FloatingNavbar(
+              activeIndex: _activeIndex,
+              onTabSelected: _scrollToSection,
+              isDarkMode: isDark,
+              onThemeToggle: () => context.read<ThemeCubit>().toggleTheme(),
+              onHireMePressed: () => _scrollToSection(7),
+              onMenuPressed: () {
+                _scaffoldKey.currentState?.openEndDrawer();
+              },
             ),
+          ),
 
-          // Mobile Header AppBar
-          if (isMobile)
-            Positioned(
-              top: 4,
-              left: 0,
-              right: 0,
-              child: _buildMobileAppBar(isDark),
-            ),
-
-          // Floating Back-to-Top FAB
+          // Floating Back-to-Top FAB (shifted up to accommodate contact FAB)
           Positioned(
-            bottom: isMobile ? 16 : 88,
+            bottom: isMobile ? 80 : 160,
             right: 24,
             child: AnimatedOpacity(
               opacity: _showBackToTop ? 1.0 : 0.0,
@@ -226,6 +247,13 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
               ),
             ),
           ),
+
+          // Expanding Contact FAB
+          Positioned(
+            bottom: isMobile ? 16 : 88,
+            right: 24,
+            child: const ExpandingFab(),
+          ),
         ],
       ),
     );
@@ -234,7 +262,9 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
   Widget _buildScrollableContent(PortfolioLoaded state, bool isMobile) {
     return RawScrollbar(
       controller: _scrollController,
-      thumbColor: isDark(context) ? Colors.white.withValues(alpha: 0.15) : Colors.black.withValues(alpha: 0.15),
+      thumbColor: isDark(context)
+          ? Colors.white.withValues(alpha: 0.15)
+          : Colors.black.withValues(alpha: 0.15),
       thickness: 6,
       radius: const Radius.circular(8),
       child: SingleChildScrollView(
@@ -246,48 +276,69 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
             child: Column(
               children: [
                 // 1. Hero
-                Container(key: _heroKey, child: HeroSection(
-                  onViewProjects: () => _scrollToSection(3),
-                  onHireMe: () => _scrollToSection(7),
-                )),
-                
+                Container(
+                  key: _heroKey,
+                  child: HeroSection(
+                    onViewProjects: () => _scrollToSection(3),
+                    onHireMe: () => _scrollToSection(7),
+                  ),
+                ),
+
                 // 2. About
                 Container(key: _aboutKey, child: const AboutSection()),
-                
+
                 // 3. Skills
-                Container(key: _skillsKey, child: SkillsSection(skills: state.skills)),
-                
+                Container(
+                  key: _skillsKey,
+                  child: SkillsSection(skills: state.skills),
+                ),
+
                 // 4. Projects
-                Container(key: _projectsKey, child: ProjectsSection(
-                  projects: state.filteredProjects,
-                  activeCategory: state.activeCategory,
-                  searchQuery: state.searchQuery,
-                  onFilterChanged: (query, category) {
-                    context.read<PortfolioBloc>().filterProjects(query, category);
-                  },
-                )),
-                
+                Container(
+                  key: _projectsKey,
+                  child: ProjectsSection(
+                    projects: state.filteredProjects,
+                    activeCategory: state.activeCategory,
+                    searchQuery: state.searchQuery,
+                    onFilterChanged: (query, category) {
+                      context.read<PortfolioBloc>().filterProjects(
+                        query,
+                        category,
+                      );
+                    },
+                  ),
+                ),
+
                 // 5. Experience
-                Container(key: _experienceKey, child: ExperienceSection(experiences: state.experiences)),
-                
+                Container(
+                  key: _experienceKey,
+                  child: ExperienceSection(experiences: state.experiences),
+                ),
+
                 // 6. Open Source
-                Container(key: _openSourceKey, child: OpenSourceSection(githubRepos: state.githubRepos)),
+                Container(
+                  key: _openSourceKey,
+                  child: OpenSourceSection(githubRepos: state.githubRepos),
+                ),
 
                 // Achievements Stats (Transitions directly after Open Source)
                 const AchievementsSection(),
 
                 // Testimonials
                 TestimonialSection(testimonials: state.testimonials),
-                
+
                 // 7. Blog
-                Container(key: _blogKey, child: BlogSection(blogs: state.blogs)),
-                
+                Container(
+                  key: _blogKey,
+                  child: BlogSection(blogs: state.blogs),
+                ),
+
                 // 8. Contact
                 Container(key: _contactKey, child: const ContactSection()),
-                
+
                 // Footer
                 const FooterSection(),
-                
+
                 // Add bottom padding for Desktop view so floating dock doesn't obscure the footer content
                 if (!isMobile) const SizedBox(height: 80),
               ],
@@ -298,41 +349,18 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
     );
   }
 
-  Widget _buildMobileAppBar(bool isDark) {
-    return GlassContainer(
-      blur: 10.0,
-      width: double.infinity,
-      height: 60,
-      borderRadius: BorderRadius.zero,
-      borderWidth: 0,
-      borderColor: Colors.transparent,
-      color: isDark ? Colors.black.withValues(alpha: 0.4) : Colors.white.withValues(alpha: 0.4),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ShaderMask(
-            shaderCallback: (bounds) => AppColors.primaryGradient.createShader(
-              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-            ),
-            child: const Text(
-              'Okwuchukwu.dev',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Colors.white),
-            ),
-          ),
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu_rounded),
-              onPressed: () => Scaffold.of(context).openEndDrawer(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildMobileDrawer(bool isDark) {
-    final List<String> titles = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Open Source', 'Blog', 'Contact'];
+    final List<String> titles = [
+      'Home',
+      'About',
+      'Skills',
+      'Projects',
+      'Experience',
+      'Open Source',
+      'Blog',
+      'Contact',
+    ];
 
     return Drawer(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
@@ -345,10 +373,15 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Navigation', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const Text(
+                    'Navigation',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                   IconButton(
                     icon: Icon(
-                      isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                      isDark
+                          ? Icons.light_mode_rounded
+                          : Icons.dark_mode_rounded,
                       color: isDark ? Colors.amber : Colors.indigo,
                     ),
                     onPressed: () {
@@ -371,10 +404,18 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                       titles[index],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: isActive ? AppColors.primary : (isDark ? Colors.white70 : Colors.black87),
+                        color: isActive
+                            ? AppColors.primary
+                            : (isDark ? Colors.white70 : Colors.black87),
                       ),
                     ),
-                    trailing: isActive ? const Icon(Icons.arrow_forward_ios_rounded, size: 12, color: AppColors.primary) : null,
+                    trailing: isActive
+                        ? const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 12,
+                            color: AppColors.primary,
+                          )
+                        : null,
                     onTap: () {
                       Navigator.pop(context); // Close drawer
                       _scrollToSection(index);

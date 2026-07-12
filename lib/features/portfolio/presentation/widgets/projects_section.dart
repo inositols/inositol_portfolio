@@ -7,6 +7,7 @@ import '../../../../core/widgets/neon_button.dart';
 import '../../../../core/widgets/spotlight_card.dart';
 import '../../../../core/utils/launcher.dart';
 import '../../data/models/portfolio_models.dart';
+import 'project_details_modal.dart';
 
 class ProjectsSection extends StatefulWidget {
   final List<Project> projects;
@@ -39,6 +40,14 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _showProjectDetails(Project project) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => ProjectDetailsModal(project: project),
+    );
   }
 
   @override
@@ -197,7 +206,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 final bool imageOnLeft = index % 2 == 0;
                 
                 final detailsWidget = _buildProjectDetails(project, isDark, isMobile);
-                final mockWidget = _buildProjectMockup(project.id, isDark);
+                final mockWidget = _buildProjectMockup(project, isDark);
 
                 return isMobile
                     ? Column(
@@ -353,6 +362,18 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           spacing: 16,
           runSpacing: 12,
           children: [
+            NeonButton(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+              onPressed: () => _showProjectDetails(project),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Case Study', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_forward_rounded, size: 14, color: Colors.white),
+                ],
+              ),
+            ),
             if (project.githubUrl != null)
               NeonButton(
                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -385,12 +406,13 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               NeonButton(
                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                 onPressed: () => Launcher.launchURL(project.liveDemoUrl!),
-                child: const Row(
+                isSecondary: true,
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Live Demo', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
-                    SizedBox(width: 8),
-                    Icon(Icons.open_in_new_rounded, size: 14, color: Colors.white),
+                    Text('Live Demo', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
+                    const SizedBox(width: 8),
+                    Icon(Icons.open_in_new_rounded, size: 14, color: isDark ? Colors.white : Colors.black),
                   ],
                 ),
               ),
@@ -400,45 +422,75 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     );
   }
 
-  Widget _buildProjectMockup(String projectId, bool isDark) {
-    return SpotlightCard(
-      borderRadius: 16,
-      glowColor: AppColors.primary.withValues(alpha: 0.1),
-      child: Container(
-        height: 380,
-        decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF0F0F13) : const Color(0xFFE5E7EB),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: Stack(
-          children: [
-            // Ambient glows inside card
-            Positioned(
-              right: -50,
-              top: -50,
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [
-                      AppColors.primary.withValues(alpha: 0.15),
-                      Colors.transparent,
-                    ],
+  Widget _buildProjectMockup(Project project, bool isDark) {
+    return GestureDetector(
+      onTap: () => _showProjectDetails(project),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: SpotlightCard(
+          borderRadius: 16,
+          glowColor: AppColors.primary.withValues(alpha: 0.1),
+          child: Container(
+            height: 380,
+            decoration: BoxDecoration(
+              color: isDark ? const Color(0xFF0F0F13) : const Color(0xFFE5E7EB),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Stack(
+              children: [
+                // Ambient glows inside card
+                Positioned(
+                  right: -50,
+                  top: -50,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          AppColors.primary.withValues(alpha: 0.15),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                
+                // Render specific vector designs
+                Positioned.fill(
+                  child: Center(
+                    child: _getMockupContent(project.id, isDark),
+                  ),
+                ),
+
+                // Floating "Click for Case Study" overlay indicator
+                Positioned(
+                  bottom: 12,
+                  left: 12,
+                  child: GlassContainer(
+                    blur: 6.0,
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    borderRadius: BorderRadius.circular(12),
+                    borderColor: Colors.white12,
+                    color: Colors.black45,
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.auto_awesome_motion_rounded, size: 12, color: AppColors.accent),
+                        SizedBox(width: 6),
+                        Text(
+                          'View Case Study',
+                          style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            
-            // Render specific vector designs
-            Positioned.fill(
-              child: Center(
-                child: _getMockupContent(projectId, isDark),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

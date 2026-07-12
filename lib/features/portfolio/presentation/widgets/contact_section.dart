@@ -120,6 +120,61 @@ class _ContactSectionState extends State<ContactSection> {
             ],
           ),
         ),
+
+        const SizedBox(height: 32),
+        // Calendly Booking Card
+        GlassContainer(
+          blur: 10,
+          padding: const EdgeInsets.all(20),
+          borderRadius: BorderRadius.circular(16),
+          color: isDark ? Colors.white.withValues(alpha: 0.02) : Colors.black.withValues(alpha: 0.02),
+          borderColor: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.calendar_today_rounded, color: AppColors.accent, size: 18),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Schedule a Sync',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Want to skip typing? Select a slot on my calendar and let\'s sync up for a discovery chat.',
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              NeonButton(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                onPressed: () => Launcher.launchURL('https://calendly.com/okama-dev/15min'),
+                borderRadius: 8,
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Book a 15-Min Chat',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(Icons.arrow_forward_rounded, size: 14, color: Colors.white),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
 

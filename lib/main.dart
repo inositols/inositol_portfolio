@@ -10,36 +10,33 @@ import 'features/portfolio/presentation/pages/portfolio_home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Clean Architecture Dependency Injections
   final httpClient = http.Client();
   final gitHubApiClient = GitHubApiClient(client: httpClient);
-  final portfolioRepository = PortfolioRepositoryImpl(gitHubApiClient: gitHubApiClient);
-
-  runApp(
-    MyApp(portfolioRepository: portfolioRepository),
+  final portfolioRepository = PortfolioRepositoryImpl(
+    gitHubApiClient: gitHubApiClient,
   );
+
+  runApp(MyApp(portfolioRepository: portfolioRepository));
 }
 
 class MyApp extends StatelessWidget {
   final PortfolioRepositoryImpl portfolioRepository;
 
-  const MyApp({
-    super.key,
-    required this.portfolioRepository,
-  });
+  const MyApp({super.key, required this.portfolioRepository});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<PortfolioRepositoryImpl>.value(value: portfolioRepository),
+        RepositoryProvider<PortfolioRepositoryImpl>.value(
+          value: portfolioRepository,
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<ThemeCubit>(
-            create: (_) => ThemeCubit(),
-          ),
+          BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
           BlocProvider<PortfolioBloc>(
             create: (context) => PortfolioBloc(
               repository: context.read<PortfolioRepositoryImpl>(),
@@ -49,7 +46,8 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, themeMode) {
             return MaterialApp(
-              title: 'Okwuchukwu Okama | Senior Flutter Engineer Portfolio',
+              title:
+                  'Okwuchukwu Okama |  Mobile Engineer(Flutter/Dart) Portfolio',
               debugShowCheckedModeBanner: false,
               themeMode: themeMode,
               theme: AppTheme.lightTheme,

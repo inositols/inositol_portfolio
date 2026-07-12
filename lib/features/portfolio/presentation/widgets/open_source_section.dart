@@ -59,6 +59,11 @@ class OpenSourceSection extends StatelessWidget {
           // GitHub Heatmap
           _buildGitHubHeatmapCard(isDark, isMobile),
 
+          const SizedBox(height: 48),
+
+          // GitHub Profile Stats & Commits
+          _buildGitHubStatsAndCommits(isDark, isMobile),
+
           const SizedBox(height: 56),
 
           // GitHub Repos Grid Title
@@ -407,6 +412,237 @@ class OpenSourceSection extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildGitHubStatsAndCommits(bool isDark, bool isMobile) {
+    final languageLegend = [
+      {'name': 'Dart', 'percentage': 85.0, 'color': AppColors.primary},
+      {'name': 'YAML', 'percentage': 10.0, 'color': Colors.purple},
+      {'name': 'HTML/CSS', 'percentage': 5.0, 'color': AppColors.accent},
+    ];
+
+    final commits = [
+      {
+        'title': 'feat(core): implement secure biometrics payload checks',
+        'repo': 'crypto_offramp_sdk',
+        'time': '2 hours ago',
+      },
+      {
+        'title': 'fix(canvas): resolve canvas scale issues in safari webkit',
+        'repo': 'certificate_canvas',
+        'time': '1 day ago',
+      },
+      {
+        'title': 'docs(readme): add custom action setup diagrams',
+        'repo': 'shorebird_code_push_workflow',
+        'time': '3 days ago',
+      },
+    ];
+
+    final statsCard = GlassContainer(
+      blur: 8.0,
+      padding: const EdgeInsets.all(24),
+      borderRadius: BorderRadius.circular(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primary,
+                ),
+                child: const Icon(Icons.person_rounded, color: Colors.white, size: 24),
+              ),
+              const SizedBox(width: 16),
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '@okama-dev',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    'Senior Flutter Architect',
+                    style: TextStyle(fontSize: 11, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          
+          // Numbers Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildStatsMetric('626', 'Stars', isDark),
+              _buildStatsMetric('1.2k', 'Followers', isDark),
+              _buildStatsMetric('42', 'Repos', isDark),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // Language bar Title
+          const Text(
+            'Language Distribution',
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
+          ),
+          const SizedBox(height: 8),
+
+          // Language distribution bar
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: SizedBox(
+              height: 10,
+              width: double.infinity,
+              child: Row(
+                children: languageLegend.map((lang) {
+                  return Expanded(
+                    flex: (lang['percentage'] as double).toInt(),
+                    child: Container(
+                      color: lang['color'] as Color,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Legend Row
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            children: languageLegend.map((lang) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: lang['color'] as Color,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    '${lang['name']} (${(lang['percentage'] as double).toInt()}%)',
+                    style: TextStyle(fontSize: 11, color: isDark ? Colors.white70 : Colors.black87),
+                  ),
+                ],
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+
+    final commitsCard = GlassContainer(
+      blur: 8.0,
+      padding: const EdgeInsets.all(24),
+      borderRadius: BorderRadius.circular(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.history_rounded, color: AppColors.primary, size: 20),
+              SizedBox(width: 8),
+              Text(
+                'Recent Commits & Activity',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          ...commits.map((commit) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 4.0),
+                    child: Icon(Icons.commit_rounded, color: AppColors.accent, size: 16),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          commit['title']!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Text(
+                              commit['repo']!,
+                              style: const TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '• ${commit['time']!}',
+                              style: const TextStyle(fontSize: 11, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+
+    return isMobile
+        ? Column(
+            children: [
+              statsCard,
+              const SizedBox(height: 24),
+              commitsCard,
+            ],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 5, child: statsCard),
+              const SizedBox(width: 24),
+              Expanded(flex: 5, child: commitsCard),
+            ],
+          );
+  }
+
+  Widget _buildStatsMetric(String val, String label, bool isDark) {
+    return Column(
+      children: [
+        Text(
+          val,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: isDark ? Colors.white : Colors.black),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: TextStyle(fontSize: 11, color: isDark ? Colors.white54 : Colors.black54),
+        ),
+      ],
     );
   }
 }

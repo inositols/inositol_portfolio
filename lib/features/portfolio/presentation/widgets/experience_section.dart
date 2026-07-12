@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/glass_container.dart';
+import '../../../../core/widgets/neon_button.dart';
+import '../../../../core/utils/launcher.dart';
 import '../../data/models/portfolio_models.dart';
 
 class ExperienceSection extends StatefulWidget {
@@ -16,6 +18,21 @@ class ExperienceSection extends StatefulWidget {
 
 class _ExperienceSectionState extends State<ExperienceSection> {
   final Set<String> _expandedIds = {};
+
+  List<String> _getTechStackForExp(String id) {
+    switch (id) {
+      case 'bucapay_exp':
+        return ['Flutter', 'Bloc', 'Clean Architecture', 'WebSockets', 'Hive', 'Biometrics'];
+      case 'getpouch_exp':
+        return ['Flutter', 'Stripe Integration', 'Hive', 'Firebase FCM', 'iOS & Android'];
+      case 'jejelove_exp':
+        return ['Flutter', 'Firestore', 'Realtime DB', 'Firebase Auth', 'Integration Tests'];
+      case 'kleiba_exp':
+        return ['PHP (Laravel)', 'Python (Django)', 'PostgreSQL', 'HTML5 & CSS3', 'JavaScript'];
+      default:
+        return ['Flutter', 'Dart'];
+    }
+  }
 
   @override
   void initState() {
@@ -293,6 +310,56 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                                                     ),
                                                   );
                                                 }),
+                                                const SizedBox(height: 16),
+                                                Text(
+                                                  'Technologies Used:',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: isDark ? Colors.white70 : Colors.black87,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8),
+                                                Wrap(
+                                                  spacing: 6,
+                                                  runSpacing: 6,
+                                                  children: _getTechStackForExp(exp.id).map((tech) {
+                                                    return Container(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors.primary.withValues(alpha: 0.05),
+                                                        borderRadius: BorderRadius.circular(12),
+                                                        border: Border.all(
+                                                          color: AppColors.primary.withValues(alpha: 0.15),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        tech,
+                                                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                                if (exp.companyUrl.isNotEmpty) ...[
+                                                  const SizedBox(height: 20),
+                                                  NeonButton(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                                    onPressed: () => Launcher.launchURL(exp.companyUrl),
+                                                    isSecondary: true,
+                                                    borderRadius: 8,
+                                                    child: Row(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        const Icon(Icons.link_rounded, size: 14),
+                                                        const SizedBox(width: 6),
+                                                        Text(
+                                                          'Visit ${exp.company}',
+                                                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
                                               ],
                                             ),
                                           )

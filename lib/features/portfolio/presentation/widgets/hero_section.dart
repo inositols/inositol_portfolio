@@ -22,170 +22,282 @@ class HeroSection extends StatelessWidget {
     final double textScale = isMobile ? 0.8 : 1.0;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : 40,
-        vertical: isMobile ? 80 : 120,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Hello Badge
-          GlassContainer(
-            blur: 8.0,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            borderRadius: BorderRadius.circular(30),
-            color: isDark 
-                ? AppColors.primary.withValues(alpha: 0.1) 
-                : AppColors.primary.withValues(alpha: 0.05),
-            borderColor: AppColors.primary.withValues(alpha: 0.2),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: AppColors.success,
-                    shape: BoxShape.circle,
-                  ),
-                ).animate(onPlay: (controller) => controller.repeat())
-                 .scale(begin: const Offset(1, 1), end: const Offset(1.5, 1.5), duration: 1000.ms, curve: Curves.easeOut)
-                 .fadeOut(duration: 1000.ms),
-                const SizedBox(width: 8),
-                Text(
-                  'Available for International Remote Roles',
-                  style: TextStyle(
-                    color: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.8),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-          ).animate().fadeIn(duration: 600.ms).scale(delay: 100.ms),
-
-          const SizedBox(height: 28),
-
-          // Main Name
-          Text(
-            "Hi, I'm Okwuchukwu Okama",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 48 * textScale,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -1.0,
-              height: 1.1,
-            ),
-          ).animate().fadeIn(duration: 800.ms, delay: 200.ms).slideY(begin: 0.15, end: 0),
-
-          const SizedBox(height: 16),
-
-          // Hero Subtitle Gradient
-          ShaderMask(
-            shaderCallback: (bounds) => AppColors.primaryGradient.createShader(
-              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-            ),
-            child: Text(
-              "Senior Flutter Engineer",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 36 * textScale,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-                letterSpacing: -0.5,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // Premium Background floating blurred circles
+        if (!isMobile) ...[
+          // Primary Glow Blob (sinusoidal float left)
+          Positioned(
+            left: -100,
+            top: 50,
+            child: Container(
+              width: 320,
+              height: 320,
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.12),
+                shape: BoxShape.circle,
               ),
-            ),
-          ).animate().fadeIn(duration: 800.ms, delay: 350.ms).slideY(begin: 0.15, end: 0),
-
-          const SizedBox(height: 24),
-
-          // Description
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 650),
-            child: Text(
-              "I build scalable, clean-architected cross-platform mobile applications using Flutter, Firebase, and modern software design patterns. Specialized in crafting smooth, offline-first production ecosystems.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16 * textScale,
-                height: 1.6,
-                fontWeight: FontWeight.w400,
-                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+            ).animate(onPlay: (controller) => controller.repeat(reverse: true))
+             .move(begin: const Offset(0, 0), end: const Offset(40, 60), duration: 8.seconds, curve: Curves.easeInOutSine)
+             .scale(begin: const Offset(1, 1), end: const Offset(1.2, 1.2), duration: 8.seconds, curve: Curves.easeInOutSine),
+          ),
+          // Accent Glow Blob (sinusoidal float right)
+          Positioned(
+            right: -100,
+            bottom: 50,
+            child: Container(
+              width: 350,
+              height: 350,
+              decoration: BoxDecoration(
+                color: AppColors.accent.withValues(alpha: 0.10),
+                shape: BoxShape.circle,
               ),
-            ),
-          ).animate().fadeIn(duration: 800.ms, delay: 500.ms).slideY(begin: 0.15, end: 0),
+            ).animate(onPlay: (controller) => controller.repeat(reverse: true))
+             .move(begin: const Offset(0, 0), end: const Offset(-50, -40), duration: 10.seconds, curve: Curves.easeInOutSine)
+             .scale(begin: const Offset(1, 1), end: const Offset(1.15, 1.15), duration: 10.seconds, curve: Curves.easeInOutSine),
+          ),
+        ],
 
-          const SizedBox(height: 48),
-
-          // Action Buttons
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 20,
-            runSpacing: 16,
+        // Hero Content Layout
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 16 : 40,
+            vertical: isMobile ? 100 : 140,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              NeonButton(
-                onPressed: onHireMe,
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Hire Me',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(Icons.arrow_forward_rounded, size: 16, color: Colors.white),
-                  ],
-                ),
-              ).animate().fadeIn(duration: 800.ms, delay: 650.ms).slideY(begin: 0.2, end: 0),
-              
-              NeonButton(
-                onPressed: onViewProjects,
-                isSecondary: true,
-                child: Text(
-                  'View Projects',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: isDark ? Colors.white : Colors.black,
-                  ),
-                ),
-              ).animate().fadeIn(duration: 800.ms, delay: 750.ms).slideY(begin: 0.2, end: 0),
-
-              NeonButton(
-                onPressed: () {
-                  Launcher.launchURL("https://github.com/okama-dev/resume/raw/main/resume.pdf");
-                },
-                isSecondary: true,
+              // 1. Availability Badge with Green Pulse
+              GlassContainer(
+                blur: 12.0,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                borderRadius: BorderRadius.circular(30),
+                color: isDark 
+                    ? AppColors.primary.withValues(alpha: 0.12) 
+                    : AppColors.primary.withValues(alpha: 0.06),
+                borderColor: AppColors.primary.withValues(alpha: 0.25),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.download_rounded,
-                      size: 16,
-                      color: isDark ? Colors.white70 : Colors.black87,
-                    ),
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: AppColors.success,
+                        shape: BoxShape.circle,
+                      ),
+                    ).animate(onPlay: (controller) => controller.repeat())
+                     .scale(begin: const Offset(1, 1), end: const Offset(1.7, 1.7), duration: 1000.ms, curve: Curves.easeOut)
+                     .fadeOut(duration: 1000.ms),
                     const SizedBox(width: 8),
                     Text(
-                      'Download Resume',
+                      'Available for Remote Opportunities',
                       style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: isDark ? Colors.white : Colors.black,
+                        color: isDark ? Colors.white.withValues(alpha: 0.95) : Colors.black.withValues(alpha: 0.85),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.8,
                       ),
                     ),
                   ],
                 ),
-              ).animate().fadeIn(duration: 800.ms, delay: 850.ms).slideY(begin: 0.2, end: 0),
+              ).animate().fadeIn(duration: 600.ms).scale(delay: 100.ms),
+
+              const SizedBox(height: 32),
+
+              // 2. Primary Heading
+              Text(
+                "Hi, I'm Okwuchukwu Okama",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 54 * textScale,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: -1.5,
+                  height: 1.1,
+                ),
+              ).animate().fadeIn(duration: 800.ms, delay: 200.ms).slideY(begin: 0.15, end: 0),
+
+              const SizedBox(height: 16),
+
+              // 3. Subheading with Shading Gradient
+              ShaderMask(
+                shaderCallback: (bounds) => AppColors.primaryGradient.createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                ),
+                child: Text(
+                  "Senior Flutter Engineer",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 40 * textScale,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+              ).animate().fadeIn(duration: 800.ms, delay: 350.ms).slideY(begin: 0.15, end: 0),
+
+              const SizedBox(height: 24),
+
+              // 4. Description Text Block
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 700),
+                child: Text(
+                  "I engineer robust, production-grade cross-platform apps utilizing Clean Architecture and the BLoC pattern. Specialized in crafting smooth, offline-first mobile ecosystems, secure fintech frameworks, and high-performance Web/Mobile integration.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 17 * textScale,
+                    height: 1.7,
+                    fontWeight: FontWeight.w400,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  ),
+                ),
+              ).animate().fadeIn(duration: 800.ms, delay: 500.ms).slideY(begin: 0.15, end: 0),
+
+              const SizedBox(height: 36),
+
+              // 5. Social Row
+              _buildSocialRow(isDark).animate().fadeIn(duration: 800.ms, delay: 600.ms),
+
+              const SizedBox(height: 48),
+
+              // 6. Action Call-to-Buttons
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 20,
+                runSpacing: 16,
+                children: [
+                  // Book a Call (Calendly/Contact jump)
+                  NeonButton(
+                    onPressed: onHireMe, // Scrolls to Contact Section
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.calendar_month_rounded, size: 18, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text(
+                          'Book a Call',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).animate().fadeIn(duration: 800.ms, delay: 650.ms).slideY(begin: 0.2, end: 0),
+                  
+                  // View Projects
+                  NeonButton(
+                    onPressed: onViewProjects,
+                    isSecondary: true,
+                    child: Text(
+                      'View Projects',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  ).animate().fadeIn(duration: 800.ms, delay: 750.ms).slideY(begin: 0.2, end: 0),
+
+                  // Download Resume
+                  NeonButton(
+                    onPressed: () {
+                      Launcher.launchURL("https://github.com/okama-dev/resume/raw/main/resume.pdf");
+                    },
+                    isSecondary: true,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.download_rounded,
+                          size: 18,
+                          color: isDark ? Colors.white70 : Colors.black87,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Download Resume',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).animate().fadeIn(duration: 800.ms, delay: 850.ms).slideY(begin: 0.2, end: 0),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSocialRow(bool isDark) {
+    final List<Map<String, dynamic>> socialLinks = [
+      {
+        'icon': Icons.code_rounded, // GitHub representation
+        'tooltip': 'GitHub',
+        'url': 'https://github.com/okama-dev',
+      },
+      {
+        'icon': Icons.link_rounded, // LinkedIn representation
+        'tooltip': 'LinkedIn',
+        'url': 'https://linkedin.com/in/okwuchukwu-okama',
+      },
+      {
+        'icon': Icons.email_outlined,
+        'tooltip': 'Email',
+        'url': 'mailto:okama.dev@gmail.com',
+      },
+      {
+        'icon': Icons.chat_bubble_outline_rounded, // WhatsApp
+        'tooltip': 'WhatsApp',
+        'url': 'https://wa.me/2348123456789?text=Hi%20Okwuchukwu',
+      },
+    ];
+
+    return Wrap(
+      spacing: 16,
+      children: socialLinks.map((item) {
+        return Tooltip(
+          message: item['tooltip'],
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: ScaleTransition(
+              scale: const AlwaysStoppedAnimation(1.0),
+              child: GestureDetector(
+                onTap: () => Launcher.launchURL(item['url']),
+                child: GlassContainer(
+                  blur: 8.0,
+                  width: 44,
+                  height: 44,
+                  shape: BoxShape.circle,
+                  padding: EdgeInsets.zero,
+                  borderColor: isDark 
+                      ? Colors.white.withValues(alpha: 0.08) 
+                      : Colors.black.withValues(alpha: 0.08),
+                  color: isDark 
+                      ? Colors.white.withValues(alpha: 0.03) 
+                      : Colors.black.withValues(alpha: 0.03),
+                  child: Center(
+                    child: Icon(
+                      item['icon'],
+                      size: 20,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ).animate(onPlay: (controller) => controller.repeat(reverse: true))
+           .moveY(begin: 0, end: -4, duration: 2.seconds + (100 * socialLinks.indexOf(item)).ms, curve: Curves.easeInOut),
+        );
+      }).toList(),
     );
   }
 }
